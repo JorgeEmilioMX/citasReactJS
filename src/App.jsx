@@ -1,16 +1,27 @@
 import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import Formulario from "./components/Formulario"
+import './css/main.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [initialState, setState] = useState("Hola Mundo");
+  // modalVisible - false al dar click osea true
+  const [modalVisible, setModalVisible] = useState(false);
 
   return (
     <>
-      <h1>Hola Mundo!</h1>
-      <p>Este es mi primer componente con ReactJS y Vite</p>
+      <main className="container">
+        <h1>Administrador de Citas <span className='titulo-bold'>Vaterinario</span></h1>
+        <button className='btn-nueva-cita' onClick={() => setModalVisible(true)}>
+          <span className='btn-text-nueva-cita'>Nueva Cita</span>
+        </button>
+        {modalVisible && (
+          <div className='modal-overlay' role='dialog' aria-modal='true'>
+            <div className='modal-content'>
+              <Formulario />
+            </div>
+          </div>
+        )}
+      </main>
     </>
   )
 }
