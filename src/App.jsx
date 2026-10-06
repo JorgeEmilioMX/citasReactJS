@@ -1,23 +1,35 @@
 import { useState } from 'react'
-import Formulario from "./components/Formulario"
+import Formulario from "./components/Formulario.jsx"
 import './css/main.css'
+import Paciente from './components/Paciente.jsx'
 
 function App() {
-  const [initialState, setState] = useState("Hola Mundo");
   // modalVisible - false al dar click osea true
-  const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false); 
+  // modalVisible variable que guarda el valor del estado y setModalVisible es la funcion que cambia el valor del estado
+  const [pacientes, setPacientes] = useState([]); //Array to save all the new records
+  //Para pasar estados de un componente padre a un componente hijo se hace a travez de props
 
   return (
     <>
       <main className="container">
-        <h1>Administrador de Citas <span className='titulo-bold'>Vaterinario</span></h1>
+        <h1>Administrador de Citas <span className='titulo-bold'>Veterinario</span></h1>
         <button className='btn-nueva-cita' onClick={() => setModalVisible(true)}>
           <span className='btn-text-nueva-cita'>Nueva Cita</span>
         </button>
+
+        <Paciente pacientes={pacientes} />
+
         {modalVisible && (
           <div className='modal-overlay' role='dialog' aria-modal='true'>
             <div className='modal-content'>
-              <Formulario />
+              <Formulario
+                modalVisible={modalVisible} 
+                setModalVisible={setModalVisible}
+                pacientes={pacientes}
+                setPacientes={setPacientes}
+              />
+              <button onClick={() => setModalVisible(false)} className='btn-cerrar'>Cerrar</button>
             </div>
           </div>
         )}
