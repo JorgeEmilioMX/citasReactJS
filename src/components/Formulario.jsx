@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import '../css/formulario.css';
 
-
-const Formulario = ({ modalVisible, setmodalVisible, pacientes, setPacientes}) => {
+const Formulario = ({ modalVisible, setModalVisible, pacientes, setPacientes}) => {
     const [paciente, setPaciente] = useState(''); //Aqui se declaran los estados
     const [nombrePropietario, setNombrePropietario] = useState(''); 
     const [email, setEmail] = useState('');
@@ -38,7 +37,7 @@ const Formulario = ({ modalVisible, setmodalVisible, pacientes, setPacientes}) =
         }
         console.log('Todos los campos están llenos');
         // Create an object with all values in the form
-        const cita = {
+        const nuevoPaciente = {
             paciente,
             nombrePropietario,
             email,
@@ -46,12 +45,13 @@ const Formulario = ({ modalVisible, setmodalVisible, pacientes, setPacientes}) =
             fechaAlta,
             sintomas
         };
-        console.log(cita);
+        console.log(nuevoPaciente);
         nuevoPaciente.id = Date.now();
         console.log(nuevoPaciente);
         //Save all new record in an array called citas
         // state = add my object into the array
         setPacientes([...pacientes, nuevoPaciente]);
+        setModalVisible(false);
         console.log(pacientes);
     }
 
@@ -62,12 +62,12 @@ const Formulario = ({ modalVisible, setmodalVisible, pacientes, setPacientes}) =
             </h2>
             <button
                 className="formulario-btn-cancelar"
-                onClick={() => { setmodalVisible(false) }}
+                onClick={() => {setModalVisible(false)}}
             >
                 <span className="formulario-btn-texto-cancelar">Cancelar</span>
             </button>
 
-            <form onSubmit={(e) => handleCita(e)}> {/* // función que se ejecuta cuando se envía el formulario*/}
+            <form onSubmit={handleCita}> {/* // función que se ejecuta cuando se envía el formulario*/}
                 <div className="formulario-campo">
                     <label htmlFor="paciente" className="formulario-label">Nombre Paciente</label>
                     <input id="paciente" type="text" className="formulario-input" placeholder="" value={paciente} onChange={(e) => {setPaciente(e.target.value) }}/>

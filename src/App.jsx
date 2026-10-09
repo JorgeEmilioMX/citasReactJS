@@ -8,8 +8,8 @@ function App() {
   const [modalVisible, setModalVisible] = useState(false); 
   // modalVisible variable que guarda el valor del estado y setModalVisible es la funcion que cambia el valor del estado
   const [pacientes, setPacientes] = useState([]); //Array to save all the new records
-  //Para pasar estados de un componente padre a un componente hijo se hace a travez de props
 
+  //Para pasar estados de un componente padre a un componente hijo se hace a travez de props
   return (
     <>
       <main className="container">
@@ -18,7 +18,16 @@ function App() {
           <span className='btn-text-nueva-cita'>Nueva Cita</span>
         </button>
 
-        <Paciente pacientes={pacientes} />
+        {pacientes.map((paciente) => {
+          return(
+            <Paciente 
+              setModalVisible={setModalVisible} 
+              pacientes={pacientes} 
+              paciente={paciente} 
+              key={paciente.id}
+            />
+          )
+        })}
 
         {modalVisible && (
           <div className='modal-overlay' role='dialog' aria-modal='true'>
@@ -29,7 +38,6 @@ function App() {
                 pacientes={pacientes}
                 setPacientes={setPacientes}
               />
-              <button onClick={() => setModalVisible(false)} className='btn-cerrar'>Cerrar</button>
             </div>
           </div>
         )}
