@@ -1,6 +1,11 @@
 import '../css/Paciente.css'
 
-const Paciente = ({setModalVisible, pacientes, paciente}) => {
+const Paciente = ({
+    setModalVisible,
+    pacientes,
+    paciente,
+    eliminarPaciente
+}) => {
 
     //Parametros son etiquetas que esperan recibir el valor del estado de un componente padre y hacen algo con ellos
     // El parametro de setModalVisible es la funcion que cambia el valor del estado
@@ -12,14 +17,28 @@ const Paciente = ({setModalVisible, pacientes, paciente}) => {
         // En console.log mostrar el array de pacientes
         console.log(pacientes);
     }
+
+    const handleEliminar = () => { //handle dice que se está llamando en el DOM
+        eliminarPaciente(paciente.id);
+    }
+
     return(
         <article className="paciente-card">
             <p className="paciente-label">Paciente: <span className="paciente-nombre">{paciente.paciente}</span></p>
             <p className="paciente-label">Fecha Alta: <span className="paciente-fecha">{paciente.fechaAlta}</span></p>
 
             <div className="paciente-contenedor-botones">
-                <button className="paciente-btn paciente-btn-editar" onClick = {() => handleEditar()}>Editar</button>
-                <button className="paciente-btn paciente-btn-eliminar">Eliminar</button>
+                <button 
+                    className="paciente-btn paciente-btn-editar" 
+                    onClick = {() => handleEditar()}>
+                    Editar
+                </button>
+                
+                <button 
+                    className="paciente-btn paciente-btn-eliminar" 
+                    onClick = {() => handleEliminar()}>
+                    Eliminar
+                </button>
             </div>
             
             {/* <p className="paciente-label">Propietario: <span className="paciente-propietario">{paciente.propietario}</span></p>
